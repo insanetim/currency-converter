@@ -1,0 +1,13 @@
+.main-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgb(16 19 82 / 0.12);
+  overflow: hidden;
+}
+.main-card__inputs {
+  padding: 24px 12px;
+  @include media-breakpoint-up(md) {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+}
