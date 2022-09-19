@@ -1,9 +1,9 @@
 import { AppState } from './context/app/AppState'
-import Main from './components/Main'
+import Converter from './components/Converter'
 
 const App = () => (
   <AppState>
-    <Main />
+    <Converter />
   </AppState>
 )
 

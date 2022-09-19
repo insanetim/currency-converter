@@ -1,84 +1,114 @@
-import axios from 'axios'
 import { useReducer } from 'react'
 
 import { AppContext } from './AppContext'
 import { AppReducer } from './AppReducer'
 import {
+  DISABLE_BUTTONS,
+  ENABLE_BUTTONS,
   FETCH_RATES,
-  HANDLE_AMOUNT_1_CHANGE,
-  HANDLE_AMOUNT_2_CHANGE,
-  HANDLE_CURRENCY_1_CHANGE,
-  HANDLE_CURRENCY_2_CHANGE,
-  SHOW_LOADER,
+  HANDLE_CHANGE
 } from '../types'
-import { API_URL } from '../../constants'
+import { API_KEY, API_URL } from '../../constants'
+import { roundToThousandths } from '../../utils'
 
 export const AppState = ({ children }) => {
   const initialState = {
     rates: undefined,
-    loading: false,
+    disabled: false,
     amount1: 0,
     amount2: 0,
     currency1: 'USD',
-    currency2: 'UAH',
+    currency2: 'UAH'
   }
   const [state, dispatch] = useReducer(AppReducer, initialState)
 
-  const showLoader = () => dispatch({ type: SHOW_LOADER })
-
   const fetchRates = async () => {
-    showLoader()
-    const res = await axios.get(API_URL).catch(error => console.error(error))
-    const payload = {
-      rates: res.data.rates,
+    disableButtons()
+    const myHeaders = new Headers()
+    myHeaders.append('apikey', API_KEY)
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: myHeaders
     }
-    dispatch({ type: FETCH_RATES, payload })
+    try {
+      const data = await fetch(API_URL, requestOptions).then(res => res.json())
+      dispatch({ type: FETCH_RATES, payload: data.rates })
+    } catch (error) {
+      console.error(error)
+    }
+    enableButtons()
   }
 
-  const handleAmount1Change = amount =>
+  const disableButtons = () => dispatch({ type: DISABLE_BUTTONS })
+
+  const enableButtons = () => dispatch({ type: ENABLE_BUTTONS })
+
+  const handleAmount1Change = amount => {
+    const amount1 = amount
+    const amount2 = roundToThousandths(
+      (amount1 * state.rates[state.currency2]) / state.rates[state.currency1]
+    )
     dispatch({
-      type: HANDLE_AMOUNT_1_CHANGE,
+      type: HANDLE_CHANGE,
       payload: {
-        amount,
-      },
+        amount1,
+        amount2
+      }
     })
-  const handleAmount2Change = amount =>
+  }
+
+  const handleAmount2Change = amount => {
+    const amount2 = amount
+    const amount1 = roundToThousandths(
+      (amount2 * state.rates[state.currency1]) / state.rates[state.currency2]
+    )
     dispatch({
-      type: HANDLE_AMOUNT_2_CHANGE,
+      type: HANDLE_CHANGE,
       payload: {
-        amount,
-      },
+        amount1,
+        amount2
+      }
     })
-  const handleCurrency1Change = currency =>
+  }
+
+  const handleCurrency1Change = currency => {
+    const currency1 = currency
+    const amount2 = roundToThousandths(
+      (state.amount1 * state.rates[state.currency2]) / state.rates[currency1]
+    )
     dispatch({
-      type: HANDLE_CURRENCY_1_CHANGE,
+      type: HANDLE_CHANGE,
       payload: {
-        currency,
-      },
+        amount2,
+        currency1
+      }
     })
-  const handleCurrency2Change = currency =>
+  }
+
+  const handleCurrency2Change = currency => {
+    const currency2 = currency
+    const amount1 = roundToThousandths(
+      (state.amount2 * state.rates[state.currency1]) / state.rates[currency2]
+    )
     dispatch({
-      type: HANDLE_CURRENCY_2_CHANGE,
+      type: HANDLE_CHANGE,
       payload: {
-        currency,
-      },
+        amount1,
+        currency2
+      }
     })
+  }
 
   return (
     <AppContext.Provider
       value={{
-        showLoader,
         fetchRates,
         handleAmount1Change,
         handleCurrency1Change,
         handleAmount2Change,
         handleCurrency2Change,
-        rates: state.rates,
-        loading: state.loading,
-        amount1: state.amount1,
-        amount2: state.amount2,
-        currency1: state.currency1,
-        currency2: state.currency2,
+        ...state
       }}
     >
       {children}
