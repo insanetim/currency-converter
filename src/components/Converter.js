@@ -5,7 +5,7 @@ import { AppContext } from '../context/app/AppContext'
 import Header from './Header'
 import InputField from './InputField'
 
-const Main = () => {
+const Converter = () => {
   const app = useContext(AppContext)
   useEffect(() => {
     app.fetchRates()
@@ -40,4 +40,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Converter

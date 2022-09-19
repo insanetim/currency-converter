@@ -6,25 +6,25 @@ import { AppContext } from '../context/app/AppContext'
 const options = [
   {
     label: 'UAH',
-    value: 'UAH',
+    value: 'UAH'
   },
   {
     label: 'USD',
-    value: 'USD',
+    value: 'USD'
   },
   {
     label: 'EUR',
-    value: 'EUR',
-  },
+    value: 'EUR'
+  }
 ]
 
 const InputField = ({
   amount,
   handleAmountChange,
   currency,
-  handleCurrencyChange,
+  handleCurrencyChange
 }) => {
-  const { loading } = useContext(AppContext)
+  const { disabled } = useContext(AppContext)
 
   return (
     <div className='flex-1'>
@@ -37,7 +37,7 @@ const InputField = ({
               type='number'
               min={0}
               onChange={e => handleAmountChange(e.target.value)}
-              disabled={loading}
+              disabled={disabled}
             />
           </Col>
           <Col span={8}>
@@ -46,7 +46,7 @@ const InputField = ({
               value={currency}
               options={options}
               onChange={value => handleCurrencyChange(value)}
-              disabled={loading}
+              disabled={disabled}
             />
           </Col>
         </Row>
