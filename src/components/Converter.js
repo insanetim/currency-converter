@@ -1,14 +1,19 @@
 import { Col, Row } from 'antd'
-import { useContext, useEffect } from 'react'
-
-import { AppContext } from '../context/app/AppContext'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import {
+  fetchRates,
+  handleAmount1Change,
+  handleAmount2Change,
+  handleCurrency1Change,
+  handleCurrency2Change
+} from '../redux/actions'
 import Header from './Header'
 import InputField from './InputField'
 
-const Converter = () => {
-  const app = useContext(AppContext)
+const Converter = props => {
   useEffect(() => {
-    app.fetchRates()
+    props.fetchRates()
   }, [])
 
   return (
@@ -19,18 +24,18 @@ const Converter = () => {
           <Row gutter={[24, 24]}>
             <Col span={24} md={12}>
               <InputField
-                amount={app.amount1}
-                handleAmountChange={app.handleAmount1Change}
-                currency={app.currency1}
-                handleCurrencyChange={app.handleCurrency1Change}
+                amount={props.amount1}
+                handleAmountChange={props.handleAmount1Change}
+                currency={props.currency1}
+                handleCurrencyChange={props.handleCurrency1Change}
               />
             </Col>
             <Col span={24} md={12}>
               <InputField
-                amount={app.amount2}
-                handleAmountChange={app.handleAmount2Change}
-                currency={app.currency2}
-                handleCurrencyChange={app.handleCurrency2Change}
+                amount={props.amount2}
+                handleAmountChange={props.handleAmount2Change}
+                currency={props.currency2}
+                handleCurrencyChange={props.handleCurrency2Change}
               />
             </Col>
           </Row>
@@ -40,4 +45,19 @@ const Converter = () => {
   )
 }
 
-export default Converter
+const mapStateToProps = state => ({
+  amount1: state.converter.amount1,
+  amount2: state.converter.amount2,
+  currency1: state.converter.currency1,
+  currency2: state.converter.currency2
+})
+
+const mapDispatchToProps = {
+  fetchRates,
+  handleAmount1Change,
+  handleAmount2Change,
+  handleCurrency1Change,
+  handleCurrency2Change
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Converter)

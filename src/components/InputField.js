@@ -1,7 +1,5 @@
 import { Col, Input, Row, Select } from 'antd'
-import { useContext } from 'react'
-
-import { AppContext } from '../context/app/AppContext'
+import { useSelector } from 'react-redux'
 
 const options = [
   {
@@ -24,7 +22,7 @@ const InputField = ({
   currency,
   handleCurrencyChange
 }) => {
-  const { disabled } = useContext(AppContext)
+  const loading = useSelector(state => state.app.loading)
 
   return (
     <div className='flex-1'>
@@ -37,7 +35,7 @@ const InputField = ({
               type='number'
               min={0}
               onChange={e => handleAmountChange(e.target.value)}
-              disabled={disabled}
+              disabled={loading}
             />
           </Col>
           <Col span={8}>
@@ -46,7 +44,7 @@ const InputField = ({
               value={currency}
               options={options}
               onChange={value => handleCurrencyChange(value)}
-              disabled={disabled}
+              disabled={loading}
             />
           </Col>
         </Row>
