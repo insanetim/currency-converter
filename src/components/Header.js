@@ -1,9 +1,8 @@
-import { useContext } from 'react'
-import { AppContext } from '../context/app/AppContext'
+import { useSelector } from 'react-redux'
 import { roundToThousandths } from '../utils'
 
 const Header = () => {
-  const { rates } = useContext(AppContext)
+  const rates = useSelector(state => state.converter.rates)
 
   return (
     <div className='main-header'>
