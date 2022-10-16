@@ -1,4 +1,4 @@
-import { FETCH_RATES, HANDLE_CHANGE } from './types'
+import * as types from './types'
 
 const initialState = {
   rates: null,
@@ -10,9 +10,9 @@ const initialState = {
 
 export default function converterReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_RATES:
+    case types.FETCH_RATES:
       return { ...state, rates: action.payload }
-    case HANDLE_CHANGE:
+    case types.HANDLE_CHANGE:
       return { ...state, ...action.payload }
     default:
       return state

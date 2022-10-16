@@ -14,6 +14,7 @@ import InputField from './InputField'
 const Converter = props => {
   useEffect(() => {
     props.fetchRates()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
