@@ -7,7 +7,7 @@ import {
   handleAmount2Change,
   handleCurrency1Change,
   handleCurrency2Change
-} from '../redux/actions'
+} from '../store/actions'
 import Header from './Header'
 import InputField from './InputField'
 
@@ -23,7 +23,10 @@ const Converter = props => {
         <Header />
         <div className='main-card__inputs'>
           <Row gutter={[24, 24]}>
-            <Col span={24} md={12}>
+            <Col
+              span={24}
+              md={12}
+            >
               <InputField
                 amount={props.amount1}
                 handleAmountChange={props.handleAmount1Change}
@@ -31,7 +34,10 @@ const Converter = props => {
                 handleCurrencyChange={props.handleCurrency1Change}
               />
             </Col>
-            <Col span={24} md={12}>
+            <Col
+              span={24}
+              md={12}
+            >
               <InputField
                 amount={props.amount2}
                 handleAmountChange={props.handleAmount2Change}

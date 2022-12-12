@@ -1,6 +1,6 @@
+import * as types from './types'
 import { API_KEY, API_URL } from '../constants'
 import { roundToThousandths } from '../utils'
-import * as types from './types'
 
 export const disableButtons = () => ({ type: types.DISABLE_BUTTONS })
 
@@ -10,7 +10,6 @@ export const fetchRates = () => async dispatch => {
   dispatch(disableButtons())
   const requestOptions = {
     method: 'GET',
-    redirect: 'follow',
     headers: {
       apikey: API_KEY
     }
@@ -33,7 +32,7 @@ export const handleAmount1Change = amount => (dispatch, getState) => {
   const {
     converter: { rates, currency1, currency2 }
   } = getState()
-  const amount1 = amount
+  const amount1 = +amount
   const amount2 = roundToThousandths((amount1 * rates[currency2]) / rates[currency1])
   dispatch({
     type: types.HANDLE_CHANGE,
@@ -48,7 +47,7 @@ export const handleAmount2Change = amount => (dispatch, getState) => {
   const {
     converter: { rates, currency1, currency2 }
   } = getState()
-  const amount2 = amount
+  const amount2 = +amount
   const amount1 = roundToThousandths((amount2 * rates[currency1]) / rates[currency2])
   dispatch({
     type: types.HANDLE_CHANGE,
