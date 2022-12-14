@@ -1,5 +1,4 @@
 import { Input, Select } from 'antd'
-import { useSelector } from 'react-redux'
 
 const options = [
   {
@@ -16,9 +15,7 @@ const options = [
   }
 ]
 
-const InputField = ({ amount, handleAmountChange, currency, handleCurrencyChange }) => {
-  const loading = useSelector(state => state.app.loading)
-
+const InputField = ({ amount, handleAmountChange, currency, handleCurrencyChange, isLoading }) => {
   return (
     <div className='flex-1'>
       <div className='main-input'>
@@ -29,14 +26,14 @@ const InputField = ({ amount, handleAmountChange, currency, handleCurrencyChange
             type='number'
             min={0}
             onChange={e => handleAmountChange(e.target.value)}
-            disabled={loading}
+            disabled={isLoading}
           />
           <Select
             style={{ width: '30%' }}
             value={currency}
             options={options}
             onChange={value => handleCurrencyChange(value)}
-            disabled={loading}
+            disabled={isLoading}
           />
         </Input.Group>
       </div>

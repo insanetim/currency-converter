@@ -1,26 +1,46 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'antd'
-import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import {
-  fetchRates,
-  handleAmount1Change,
-  handleAmount2Change,
-  handleCurrency1Change,
-  handleCurrency2Change
-} from '../store/actions'
+
+import { useGetRatesQuery } from '../store/api/apiSlice'
+import { handleChange } from '../store/converter/converterSlice'
+import { roundToThousandths } from '../utils'
+
 import Header from './Header'
 import InputField from './InputField'
 
-const Converter = props => {
-  useEffect(() => {
-    props.fetchRates()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+const Converter = () => {
+  const { isLoading, data: rates } = useGetRatesQuery()
+  const dispatch = useDispatch()
+  const { amount1, amount2, currency1, currency2 } = useSelector(state => state.converter)
+
+  const handleAmount1Change = amount => {
+    const amount1 = +amount
+    const amount2 = roundToThousandths((amount1 * rates[currency2]) / rates[currency1])
+    dispatch(handleChange({ amount1, amount2 }))
+  }
+
+  const handleAmount2Change = amount => {
+    const amount2 = +amount
+    const amount1 = roundToThousandths((amount2 * rates[currency1]) / rates[currency2])
+    dispatch(handleChange({ amount1, amount2 }))
+  }
+
+  const handleCurrency1Change = currency => {
+    const currency1 = currency
+    const amount2 = roundToThousandths((amount1 * rates[currency2]) / rates[currency1])
+    dispatch(handleChange({ amount2, currency1 }))
+  }
+
+  const handleCurrency2Change = currency => {
+    const currency2 = currency
+    const amount1 = roundToThousandths((amount2 * rates[currency1]) / rates[currency2])
+    dispatch(handleChange({ amount1, currency2 }))
+  }
 
   return (
     <div className='main-wrap'>
       <div className='main-card'>
-        <Header />
+        <Header rates={rates} />
         <div className='main-card__inputs'>
           <Row gutter={[24, 24]}>
             <Col
@@ -28,10 +48,11 @@ const Converter = props => {
               md={12}
             >
               <InputField
-                amount={props.amount1}
-                handleAmountChange={props.handleAmount1Change}
-                currency={props.currency1}
-                handleCurrencyChange={props.handleCurrency1Change}
+                amount={amount1}
+                handleAmountChange={handleAmount1Change}
+                currency={currency1}
+                handleCurrencyChange={handleCurrency1Change}
+                isLoading={isLoading}
               />
             </Col>
             <Col
@@ -39,10 +60,11 @@ const Converter = props => {
               md={12}
             >
               <InputField
-                amount={props.amount2}
-                handleAmountChange={props.handleAmount2Change}
-                currency={props.currency2}
-                handleCurrencyChange={props.handleCurrency2Change}
+                amount={amount2}
+                handleAmountChange={handleAmount2Change}
+                currency={currency2}
+                handleCurrencyChange={handleCurrency2Change}
+                isLoading={isLoading}
               />
             </Col>
           </Row>
@@ -52,19 +74,4 @@ const Converter = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  amount1: state.converter.amount1,
-  amount2: state.converter.amount2,
-  currency1: state.converter.currency1,
-  currency2: state.converter.currency2
-})
-
-const mapDispatchToProps = {
-  fetchRates,
-  handleAmount1Change,
-  handleAmount2Change,
-  handleCurrency1Change,
-  handleCurrency2Change
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Converter)
+export default Converter

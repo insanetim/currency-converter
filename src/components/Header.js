@@ -1,9 +1,6 @@
-import { useSelector } from 'react-redux'
 import { roundToThousandths } from '../utils'
 
-const Header = () => {
-  const rates = useSelector(state => state.converter.rates)
-
+const Header = ({ rates }) => {
   return (
     <div className='main-header'>
       <div className='main-header__title'>
