@@ -12,8 +12,8 @@ const converterSlice = createSlice({
   initialState,
   reducers: {
     handleChange(state, action) {
-      Object.keys(state).forEach(key => {
-        state[key] = action.payload[key] ?? state[key]
+      Object.entries(action.payload).forEach(([key, value]) => {
+        state[key] = value
       })
     }
   }
