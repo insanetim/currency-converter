@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'antd'
 
 import { useGetRatesQuery } from '../store/api/apiSlice'
-import { handleChange } from '../store/converter/converterSlice'
+import { handleChange } from '../store/slices/converterSlice'
 import { roundToThousandths } from '../utils'
 
 import Header from './Header'
