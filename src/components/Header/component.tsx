@@ -1,6 +1,7 @@
-import { roundToThousandths } from '../utils'
+import type { HeaderProps } from './types'
+import { roundToThousandths } from '../../utils'
 
-const Header = ({ rates }) => {
+const Header: React.FC<HeaderProps> = ({ rates }) => {
   return (
     <div className='main-header'>
       <div className='main-header__title'>

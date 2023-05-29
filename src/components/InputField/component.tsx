@@ -1,21 +1,19 @@
 import { Input, Select } from 'antd'
+import { InputFieldProps } from './types'
 
-const options = [
-  {
-    label: 'UAH',
-    value: 'UAH'
-  },
-  {
-    label: 'USD',
-    value: 'USD'
-  },
-  {
-    label: 'EUR',
-    value: 'EUR'
-  }
-]
+const InputField: React.FC<InputFieldProps> = ({
+  amount,
+  currency,
+  isLoading,
+  handleAmountChange,
+  handleCurrencyChange
+}) => {
+  const options = [
+    { label: 'UAH', value: 'UAH' },
+    { label: 'USD', value: 'USD' },
+    { label: 'EUR', value: 'EUR' }
+  ]
 
-const InputField = ({ amount, handleAmountChange, currency, handleCurrencyChange, isLoading }) => {
   return (
     <div className='flex-1'>
       <div className='main-input'>

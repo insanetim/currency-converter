@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/dist/query'
 
-import apiSlice from './api/apiSlice'
-import converterReducer from './slices/converterSlice'
+import { apiSlice } from './api/apiSlice'
+import { converterReducer } from './slices/converterSlice'
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     converter: converterReducer
@@ -12,4 +13,6 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production'
 })
 
-export default store
+setupListeners(store.dispatch)
+
+export type RootState = ReturnType<typeof store.getState>

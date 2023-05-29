@@ -1,5 +1,5 @@
 import Converter from './components/Converter'
 
-const App = () => <Converter />
+const App: React.FC = () => <Converter />
 
 export default App

@@ -2,8 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { createSelector } from '@reduxjs/toolkit'
 
 import { API_KEY, API_URL } from '../../constants'
+import { ApiResponse, Rates } from '../../interfaces/api'
 
-const apiSlice = createApi({
+export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
@@ -12,7 +13,7 @@ const apiSlice = createApi({
     }
   }),
   endpoints: builder => ({
-    getRates: builder.query({
+    getRates: builder.query<Rates, void>({
       query: () => ({
         url: 'latest',
         params: {
@@ -20,14 +21,12 @@ const apiSlice = createApi({
           base: 'USD'
         }
       }),
-      transformResponse: response => response.rates
+      transformResponse: (response: ApiResponse) => response.rates
     })
   })
 })
 
 export const { useGetRatesQuery } = apiSlice
-
-export default apiSlice
 
 const emptyRates = {}
 
