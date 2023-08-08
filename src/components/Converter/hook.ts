@@ -1,14 +1,15 @@
 import { useActions } from '../../hooks/actions'
 import { useAppSelector } from '../../hooks/redux'
 import { Currency } from '../../interfaces/api'
+import { RootState } from '../../store'
 import { useGetRatesQuery } from '../../store/api/apiSlice'
 import { roundToThousandths } from '../../utils'
 import { ConverterHook } from './types'
 
 const useContainer = (): ConverterHook => {
-  const { isLoading, data: rates } = useGetRatesQuery()
+  const { data: rates, isLoading } = useGetRatesQuery()
   const { handleChange } = useActions()
-  const { amount1, amount2, currency1, currency2 } = useAppSelector(state => state.converter)
+  const { amount1, amount2, currency1, currency2 } = useAppSelector((state: RootState) => state.converter)
 
   const handleAmount1Change = (amount: string) => {
     if (!rates) {
@@ -51,12 +52,12 @@ const useContainer = (): ConverterHook => {
     amount2,
     currency1,
     currency2,
-    rates,
-    isLoading,
     handleAmount1Change,
     handleAmount2Change,
     handleCurrency1Change,
-    handleCurrency2Change
+    handleCurrency2Change,
+    isLoading,
+    rates
   }
 }
 

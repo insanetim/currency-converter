@@ -10,12 +10,12 @@ const Converter: React.FC = () => {
     amount2,
     currency1,
     currency2,
-    rates,
-    isLoading,
     handleAmount1Change,
     handleAmount2Change,
     handleCurrency1Change,
-    handleCurrency2Change
+    handleCurrency2Change,
+    isLoading,
+    rates
   } = useContainer()
 
   return (
@@ -25,25 +25,25 @@ const Converter: React.FC = () => {
         <div className='main-card__inputs'>
           <Row gutter={[24, 24]}>
             <Col
-              span={24}
               md={12}
+              span={24}
             >
               <InputField
                 amount={amount1}
-                handleAmountChange={handleAmount1Change}
                 currency={currency1}
+                handleAmountChange={handleAmount1Change}
                 handleCurrencyChange={handleCurrency1Change}
                 isLoading={isLoading}
               />
             </Col>
             <Col
-              span={24}
               md={12}
+              span={24}
             >
               <InputField
                 amount={amount2}
-                handleAmountChange={handleAmount2Change}
                 currency={currency2}
+                handleAmountChange={handleAmount2Change}
                 handleCurrencyChange={handleCurrency2Change}
                 isLoading={isLoading}
               />

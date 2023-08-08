@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+
 import { Currency } from '../../interfaces/api'
 
 export interface ConverterState {
@@ -20,8 +21,8 @@ const initialState: ConverterState = {
 }
 
 export const converterSlice = createSlice({
-  name: 'converter',
   initialState,
+  name: 'converter',
   reducers: {
     handleChange(state: StateMap<ConverterState>, action: PayloadAction<Partial<ConverterState>>) {
       Object.entries(action.payload).forEach(([key, value]) => {

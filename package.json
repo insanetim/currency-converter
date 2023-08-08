@@ -2,27 +2,36 @@
   "name": "currency-converter",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.196",
+    "@types/node": "^20.4.8",
+    "@types/react": "^18.2.19",
+    "@types/react-dom": "^18.2.7",
+    "eslint-plugin-perfectionist": "^1.5.1",
+    "typescript": "^5.1.6"
+  },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.1",
-    "antd": "^5.1.0",
-    "bootstrap": "^5.2.3",
+    "@reduxjs/toolkit": "^1.9.5",
+    "antd": "^5.8.2",
+    "bootstrap": "^5.3.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
+    "react-redux": "^8.1.2",
     "react-scripts": "^5.0.1",
-    "sass": "^1.57.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "sass": "^1.64.2"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "plugin:perfectionist/recommended-natural"
+    ],
+    "plugins": [
+      "perfectionist"
     ]
   },
   "browserslist": {
@@ -36,12 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^20.2.5",
-    "@types/react": "^18.2.7",
-    "@types/react-dom": "^18.2.4",
-    "typescript": "^5.0.4"
   }
 }

@@ -1,4 +1,5 @@
 import type { HeaderProps } from './types'
+
 import { roundToThousandths } from '../../utils'
 
 const Header: React.FC<HeaderProps> = ({ rates }) => {

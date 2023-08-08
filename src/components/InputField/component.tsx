@@ -1,12 +1,13 @@
 import { Input, Select } from 'antd'
+
 import { InputFieldProps } from './types'
 
 const InputField: React.FC<InputFieldProps> = ({
   amount,
   currency,
-  isLoading,
   handleAmountChange,
-  handleCurrencyChange
+  handleCurrencyChange,
+  isLoading
 }) => {
   const options = [
     { label: 'UAH', value: 'UAH' },
@@ -19,19 +20,19 @@ const InputField: React.FC<InputFieldProps> = ({
       <div className='main-input'>
         <Input.Group compact>
           <Input
-            style={{ width: '70%' }}
-            value={amount}
-            type='number'
+            disabled={isLoading}
             min={0}
             onChange={e => handleAmountChange(e.target.value)}
-            disabled={isLoading}
+            style={{ width: '70%' }}
+            type='number'
+            value={amount}
           />
           <Select
+            disabled={isLoading}
+            onChange={value => handleCurrencyChange(value)}
+            options={options}
             style={{ width: '30%' }}
             value={currency}
-            options={options}
-            onChange={value => handleCurrencyChange(value)}
-            disabled={isLoading}
           />
         </Input.Group>
       </div>
