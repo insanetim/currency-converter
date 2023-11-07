@@ -1,5 +1,6 @@
-import { Input, Select } from 'antd'
+import { Input, Select, Space } from 'antd'
 
+import { CURRENCIES } from '../../interfaces/api'
 import { InputFieldProps } from './types'
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -10,20 +11,19 @@ const InputField: React.FC<InputFieldProps> = ({
   isLoading
 }) => {
   const options = [
-    { label: 'UAH', value: 'UAH' },
-    { label: 'USD', value: 'USD' },
-    { label: 'EUR', value: 'EUR' }
+    { label: CURRENCIES.UAH, value: CURRENCIES.UAH },
+    { label: CURRENCIES.USD, value: CURRENCIES.USD },
+    { label: CURRENCIES.EUR, value: CURRENCIES.EUR }
   ]
 
   return (
     <div className='flex-1'>
       <div className='main-input'>
-        <Input.Group compact>
+        <Space.Compact block>
           <Input
             disabled={isLoading}
             min={0}
             onChange={e => handleAmountChange(e.target.value)}
-            style={{ width: '70%' }}
             type='number'
             value={amount}
           />
@@ -31,10 +31,9 @@ const InputField: React.FC<InputFieldProps> = ({
             disabled={isLoading}
             onChange={value => handleCurrencyChange(value)}
             options={options}
-            style={{ width: '30%' }}
             value={currency}
           />
-        </Input.Group>
+        </Space.Compact>
       </div>
     </div>
   )

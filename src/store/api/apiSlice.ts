@@ -1,21 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { API_KEY, API_URL } from '../../constants'
-import { ApiResponse, Rates } from '../../interfaces/api'
+import { ApiResponse, CURRENCIES, Rates } from '../../interfaces/api'
 
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
+    baseUrl: process.env.REACT_APP_API_URL,
     prepareHeaders: headers => {
-      headers.set('apikey', API_KEY)
+      headers.set('apikey', process.env.REACT_APP_API_KEY as string)
     }
   }),
   endpoints: builder => ({
     getRates: builder.query<Rates, void>({
       query: () => ({
         params: {
-          base: 'USD',
-          symbols: ['USD', 'EUR', 'UAH']
+          base: CURRENCIES.USD,
+          symbols: Object.values(CURRENCIES)
         },
         url: 'latest'
       }),

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Currency } from '../../interfaces/api'
+import { CURRENCIES, Currency } from '../../interfaces/api'
 
 export interface ConverterState {
   amount1: number
@@ -16,8 +16,8 @@ type StateMap<Type> = {
 const initialState: ConverterState = {
   amount1: 0,
   amount2: 0,
-  currency1: 'USD',
-  currency2: 'UAH'
+  currency1: CURRENCIES.USD,
+  currency2: CURRENCIES.UAH
 }
 
 export const converterSlice = createSlice({
