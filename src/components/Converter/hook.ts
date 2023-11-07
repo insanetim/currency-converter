@@ -51,10 +51,10 @@ const useContainer = (): ConverterHook => {
       return
     }
     const currency2 = currency
-    const amount1 = roundToThousandths(
-      (amount2 * rates[currency1]) / rates[currency2]
+    const amount2 = roundToThousandths(
+      (amount1 * rates[currency2]) / rates[currency1]
     )
-    handleChange({ amount1, currency2 })
+    handleChange({ amount2, currency2 })
   }
 
   return {
