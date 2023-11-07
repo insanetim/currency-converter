@@ -24,7 +24,10 @@ export const converterSlice = createSlice({
   initialState,
   name: 'converter',
   reducers: {
-    handleChange(state: StateMap<ConverterState>, action: PayloadAction<Partial<ConverterState>>) {
+    handleChange(
+      state: StateMap<ConverterState>,
+      action: PayloadAction<Partial<ConverterState>>
+    ) {
       Object.entries(action.payload).forEach(([key, value]) => {
         state[key] = value
       })

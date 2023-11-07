@@ -9,14 +9,18 @@ import { ConverterHook } from './types'
 const useContainer = (): ConverterHook => {
   const { data: rates, isLoading } = useGetRatesQuery()
   const { handleChange } = useActions()
-  const { amount1, amount2, currency1, currency2 } = useAppSelector((state: RootState) => state.converter)
+  const { amount1, amount2, currency1, currency2 } = useAppSelector(
+    (state: RootState) => state.converter
+  )
 
   const handleAmount1Change = (amount: string) => {
     if (!rates) {
       return
     }
     const amount1 = +amount
-    const amount2 = roundToThousandths((amount1 * rates[currency2]) / rates[currency1])
+    const amount2 = roundToThousandths(
+      (amount1 * rates[currency2]) / rates[currency1]
+    )
     handleChange({ amount1, amount2 })
   }
 
@@ -25,7 +29,9 @@ const useContainer = (): ConverterHook => {
       return
     }
     const amount2 = +amount
-    const amount1 = roundToThousandths((amount2 * rates[currency1]) / rates[currency2])
+    const amount1 = roundToThousandths(
+      (amount2 * rates[currency1]) / rates[currency2]
+    )
     handleChange({ amount1, amount2 })
   }
 
@@ -34,7 +40,9 @@ const useContainer = (): ConverterHook => {
       return
     }
     const currency1 = currency
-    const amount2 = roundToThousandths((amount1 * rates[currency2]) / rates[currency1])
+    const amount2 = roundToThousandths(
+      (amount1 * rates[currency2]) / rates[currency1]
+    )
     handleChange({ amount2, currency1 })
   }
 
@@ -43,7 +51,9 @@ const useContainer = (): ConverterHook => {
       return
     }
     const currency2 = currency
-    const amount1 = roundToThousandths((amount2 * rates[currency1]) / rates[currency2])
+    const amount1 = roundToThousandths(
+      (amount2 * rates[currency1]) / rates[currency2]
+    )
     handleChange({ amount1, currency2 })
   }
 

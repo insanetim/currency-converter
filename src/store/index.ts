@@ -6,7 +6,8 @@ import { converterReducer } from './slices/converterSlice'
 
 export const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     converter: converterReducer
