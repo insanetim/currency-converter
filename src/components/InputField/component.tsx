@@ -6,9 +6,9 @@ import { InputFieldProps } from './types'
 const InputField: React.FC<InputFieldProps> = ({
   amount,
   currency,
+  isLoading,
   handleAmountChange,
-  handleCurrencyChange,
-  isLoading
+  handleCurrencyChange
 }) => {
   const options = [
     { label: CURRENCIES.UAH, value: CURRENCIES.UAH },
@@ -23,7 +23,7 @@ const InputField: React.FC<InputFieldProps> = ({
           <Input
             disabled={isLoading}
             min={0}
-            onChange={e => handleAmountChange(e.target.value)}
+            onChange={e => handleAmountChange(Number(e.target.value))}
             type='number'
             value={amount}
           />

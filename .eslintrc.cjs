@@ -7,9 +7,9 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:perfectionist/recommended-natural'
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'perfectionist'],
+  plugins: ['@typescript-eslint'],
   root: true
 }

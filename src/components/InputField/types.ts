@@ -1,7 +1,9 @@
+import { Currency } from '../../interfaces/api'
+
 export interface InputFieldProps {
   amount: number
-  currency: string
-  handleAmountChange(amount: string): void
-  handleCurrencyChange(currency: string): void
+  currency: Currency
   isLoading: boolean
+  handleAmountChange: (amount: number) => void
+  handleCurrencyChange: (currency: Currency) => void
 }

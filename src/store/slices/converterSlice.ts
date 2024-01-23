@@ -21,8 +21,8 @@ const initialState: ConverterState = {
 }
 
 export const converterSlice = createSlice({
-  initialState,
   name: 'converter',
+  initialState,
   reducers: {
     handleChange(
       state: StateMap<ConverterState>,
@@ -32,8 +32,14 @@ export const converterSlice = createSlice({
         state[key] = value
       })
     }
+  },
+  selectors: {
+    converterSelector: state => state
   }
 })
 
 export const converterActions = converterSlice.actions
-export const converterReducer = converterSlice.reducer
+
+export const { converterSelector } = converterSlice.selectors
+
+export default converterSlice.reducer
