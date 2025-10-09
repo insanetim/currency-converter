@@ -11,9 +11,15 @@ export type Rates = {
 }
 
 export interface ApiResponse {
-  base: CURRENCIES.USD
-  date: string
+  base_code: CURRENCIES.USD
+  documentation: string
+  provider: string
   rates: Rates
-  success: boolean
-  timestamp: number
+  result: 'success' | 'error'
+  terms_of_use: string
+  time_eol_unix: number
+  time_last_update_unix: number
+  time_last_update_utc: string
+  time_next_update_unix: string
+  time_next_update_utc: string
 }
